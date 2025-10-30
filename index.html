@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Survey Data Visualization</title>
+    <title>Survey Data Visualization & Affinity Analysis</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         * {
@@ -23,7 +23,7 @@
         }
         
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
         }
         
@@ -121,6 +121,190 @@
             border-left: 4px solid #6a11cb;
         }
         
+        /* Analysis Report Styles */
+        .analysis-container {
+            margin-top: 40px;
+        }
+        
+        .analysis-chart-container {
+            margin: 40px 0;
+            padding: 25px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        
+        .analysis-chart-container h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.6rem;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 12px;
+            position: relative;
+        }
+        
+        .analysis-chart-container h2::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: linear-gradient(90deg, #6a11cb, #2575fc);
+        }
+        
+        .analysis-box {
+            background: linear-gradient(135deg, rgba(227, 242, 253, 0.8), rgba(243, 229, 245, 0.8));
+            padding: 20px;
+            border-left: 5px solid #6a11cb;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-size: 1.1em;
+            backdrop-filter: blur(5px);
+        }
+        
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: center;
+        }
+        
+        .chart-wrapper {
+            position: relative;
+            height: 300px;
+        }
+        
+        .highlight {
+            background: rgba(255, 243, 205, 0.8);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #ffc107;
+            backdrop-filter: blur(5px);
+        }
+        
+        /* Affinity Diagram Styles */
+        .affinity-container {
+            margin-top: 40px;
+        }
+        
+        .affinity-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(106, 17, 203, 0.9) 0%, rgba(37, 117, 252, 0.9) 100%);
+            color: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .affinity-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" opacity="0.1"><path d="M0 0h30v30H0z" fill="%23ffffff"/><path d="M30 30h30v30H30z" fill="%23ffffff"/></svg>');
+            background-size: 60px 60px;
+        }
+        
+        .affinity-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+        
+        .theme {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 6px 18px rgba(12, 18, 33, 0.06);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        
+        .theme h2 {
+            margin: 0 0 8px;
+            font-size: 16px;
+            color: #2c3e50;
+        }
+        
+        .theme .sub {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .sub h3 {
+            margin: 0;
+            font-size: 13px;
+            color: #6b7280;
+        }
+        
+        ul.sticky {
+            list-style: none;
+            padding: 0;
+            margin: 8px 0 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        ul.sticky li {
+            min-width: 200px;
+            max-width: 260px;
+            padding: 10px 12px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(12, 18, 33, 0.06);
+            font-size: 13px;
+        }
+        
+        /* colors */
+        .c-blue li {
+            background: rgba(215, 236, 255, 0.8);
+        }
+        
+        .c-green li {
+            background: rgba(230, 247, 230, 0.8);
+        }
+        
+        .c-yellow li {
+            background: rgba(255, 244, 214, 0.8);
+        }
+        
+        .c-orange li {
+            background: rgba(255, 232, 217, 0.8);
+        }
+        
+        .c-purple li {
+            background: rgba(242, 233, 255, 0.8);
+        }
+        
+        .fullwide {
+            grid-column: 1 / -1;
+        }
+        
+        .insights {
+            margin-top: 18px;
+            padding: 14px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 6px 18px rgba(12, 18, 33, 0.04);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        
+        .insights h3 {
+            margin: 0 0 8px;
+            color: #2c3e50;
+        }
+        
         footer {
             text-align: center;
             margin-top: 50px;
@@ -132,17 +316,44 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
         }
         
+        pre {
+            background: #0b1220;
+            color: #dfe7ff;
+            padding: 12px;
+            border-radius: 8px;
+            overflow: auto;
+        }
+        
+        .affinity-themes-container {
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+        
         @media (max-width: 768px) {
             h1 {
                 font-size: 2.2rem;
             }
             
-            header {
+            header, .affinity-header {
                 padding: 20px;
             }
             
             .chart-container {
                 height: 300px;
+            }
+            
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            
+            .chart-wrapper {
+                height: 250px;
+            }
+            
+            .affinity-grid, .affinity-themes-container {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -151,7 +362,7 @@
     <div class="container">
         <header>
             <h1>Survey Data Visualization</h1>
-            <p class="subtitle">Analysis of User Preferences for Leisure Activities and Spending Habits</p>
+            <p class="subtitle">Data Analysis of National Day Holiday Interview Questionnaire Results</p>
         </header>
         
         <div class="cards-container">
@@ -189,12 +400,245 @@
             </div>
         </div>
         
+        <!-- Analysis Report Section -->
+        <div class="analysis-container">
+            <div class="analysis-chart-container">
+                <h2>👥 Q4: What is your current status?</h2>
+                <div class="chart-wrapper">
+                    <canvas id="statusChart"></canvas>
+                </div>
+                <div class="highlight">
+                    <strong>💡 Insight:</strong> Employed individuals account for half (50%) of respondents, while freelancers/self-employed make up 30%, indicating the survey population is primarily working professionals.
+                </div>
+            </div>
+
+            <div class="analysis-chart-container">
+                <h2>🚗 Q5: What was your main mode of transportation? (by age group)</h2>
+                <div class="chart-wrapper">
+                    <canvas id="transportationChart"></canvas>
+                </div>
+                <div class="analysis-box">
+                    <strong>🚄 Key Findings:</strong> 
+                    <ul>
+                        <li>Self-driving dominates across all age groups</li>
+                        <li>26-35 age group are the primary users of high-speed rail (50%)</li>
+                        <li>30% of the 45+ age group did not travel</li>
+                        <li>Younger groups (Under 18, 19-25) show 100% self-driving usage</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="analysis-chart-container">
+                <h2>⭐ Q6: Overall satisfaction level</h2>
+                <div class="grid-2">
+                    <div class="chart-wrapper">
+                        <canvas id="satisfactionRadarChart"></canvas>
+                    </div>
+                    <div class="chart-wrapper">
+                        <canvas id="satisfactionGaugeChart"></canvas>
+                    </div>
+                </div>
+                <div class="highlight">
+                    <strong>🎉 Outstanding Performance:</strong> Satisfaction reaches 100%, with 70% being "Very Satisfied" and 30% "Satisfied" - an exceptionally high level in consumer research with no neutral or dissatisfied responses.
+                </div>
+            </div>
+
+            <div class="analysis-chart-container">
+                <h2>📈 Demographic Overview</h2>
+                <div class="chart-wrapper">
+                    <canvas id="demographicChart"></canvas>
+                </div>
+                <div class="analysis-box">
+                    <strong>🔍 Population Insights:</strong> The survey captures a diverse age distribution with strong representation from 26-35 and 36-45 age groups, combined with high employment rates and exceptional satisfaction levels.
+                </div>
+            </div>
+
+            <div class="analysis-chart-container">
+                <h2>🔍 Key Findings Summary</h2>
+                <div class="analysis-box">
+                    <h3>Main Discoveries:</h3>
+                    <ul>
+                        <li><strong>Transportation Preferences:</strong> Self-driving is the primary mode across all age groups, with high-speed rail particularly popular among 26-35 year olds (50%)</li>
+                        <li><strong>Satisfaction Levels:</strong> Exceptional overall satisfaction with 100% of respondents reporting satisfied or very satisfied</li>
+                        <li><strong>Demographic Profile:</strong> Respondents are primarily employed (50%) and freelancers/self-employed (30%)</li>
+                        <li><strong>Age Distribution:</strong> Balanced representation across age groups with 26-35 being the largest segment (30%)</li>
+                    </ul>
+                    
+                    <h3>Notable Observations:</h3>
+                    <ul>
+                        <li>30% of the 45+ age group did not travel, possibly indicating lower travel needs in this demographic</li>
+                        <li>All respondents expressed satisfaction with no negative feedback - rare in typical surveys</li>
+                        <li>High-speed rail usage peaks at 50% in the 26-35 age group, significantly higher than other transportation modes</li>
+                        <li>Younger demographics (under 25) rely exclusively on self-driving</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Affinity Diagram Section -->
+        <div class="affinity-container">
+            <div class="affinity-header">
+                <h1>Interview Data Analysis — Affinity Diagram</h1>
+                <p class="subtitle">Digital affinity diagram converted from interview responses. Contains 30+ sticky notes, 5 main themes and 15 subthemes.</p>
+            </div>
+
+            <section class="affinity-grid">
+                <article class="theme">
+                    <h2>1. Raw Data</h2>
+                    <p class="muted">The interview content includes three main themes and about 100 responses used as raw data.</p>
+                    <ul>
+                        <li><strong>Theme 1:</strong> Holiday Planning & Decision-Making</li>
+                        <li><strong>Theme 2:</strong> Actual Experiences & Interactions During the Holiday</li>
+                        <li><strong>Theme 3:</strong> Feelings, Reflection & Future Expectations</li>
+                    </ul>
+                </article>
+
+                <article class="theme">
+                    <h2>2. Synthesis</h2>
+                    <p class="muted">We conducted thematic clustering (affinity analysis) and organized content into five hierarchical levels:</p>
+                    <pre>Raw Data → Sticky Notes (Keywords) → Subthemes → Themes → Core Insights</pre>
+                </article>
+
+                <article class="theme fullwide">
+                    <h2>3. Digital Affinity Diagram</h2>
+                    <p class="muted">Final diagram contains 30+ sticky notes, 5 main themes and 15 subthemes. Below are the themes and notes (sticky items):</p>
+                    
+                    <div class="affinity-themes-container">
+                        <article class="theme">
+                            <h2>Theme 1 — Planning Triggers & Motivations</h2>
+                            <div class="sub">
+                                <h3>Timing of Planning</h3>
+                                <ul class="sticky c-blue">
+                                    <li>Planned 1 month before to relax after work.</li>
+                                    <li>Planned 2 weeks before after roommates discussed trips.</li>
+                                    <li>Planned just 3 days before—wanted to stay home.</li>
+                                    <li>Planned early to visit exhibitions or take photos.</li>
+                                </ul>
+                                <h3>Motivations</h3>
+                                <ul class="sticky c-blue">
+                                    <li>Desire to relax and escape from work pressure.</li>
+                                    <li>Interest in cultural/art events.</li>
+                                    <li>Family bonding and shared meals.</li>
+                                    <li>Personal hobbies (photography, reading, dancing).</li>
+                                </ul>
+                            </div>
+                        </article>
+
+                        <article class="theme">
+                            <h2>Theme 2 — Decision Factors</h2>
+                            <div class="sub">
+                                <h3>Practical Considerations</h3>
+                                <ul class="sticky c-green">
+                                    <li>Cost and distance were main concerns.</li>
+                                    <li>Transportation convenience mattered most.</li>
+                                    <li>Accommodation availability and weather conditions.</li>
+                                </ul>
+                                <h3>Personal Priorities</h3>
+                                <ul class="sticky c-green">
+                                    <li>Avoiding crowds and ensuring rest time.</li>
+                                    <li>Family preferences over personal desires.</li>
+                                    <li>Health condition influencing activity type.</li>
+                                </ul>
+                            </div>
+                        </article>
+
+                        <article class="theme">
+                            <h2>Theme 3 — Information Sources & Planning Tools</h2>
+                            <div class="sub">
+                                <h3>Social Media & Apps</h3>
+                                <ul class="sticky c-yellow">
+                                    <li>Xiaohongshu and Douyin for travel ideas.</li>
+                                    <li>Ctrip for hotel and flight booking.</li>
+                                    <li>Art gallery websites and Douban groups for event info.</li>
+                                </ul>
+                                <h3>Social Networks</h3>
+                                <ul class="sticky c-yellow">
+                                    <li>Friends' and family's experiences influenced decisions.</li>
+                                    <li>Teachers, colleagues, and customers offered advice.</li>
+                                </ul>
+                            </div>
+                        </article>
+
+                        <article class="theme">
+                            <h2>Theme 4 — Holiday Experiences & Challenges</h2>
+                            <div class="sub">
+                                <h3>Memorable Moments</h3>
+                                <ul class="sticky c-orange">
+                                    <li>Watching sunrise, beach walks, and square dancing.</li>
+                                    <li>Family meals and successful pastry sales.</li>
+                                    <li>Finishing yoga poses or seeing art exhibitions.</li>
+                                </ul>
+                                <h3>Unexpected Events</h3>
+                                <ul class="sticky c-orange">
+                                    <li>Lost direction → used Baidu Maps.</li>
+                                    <li>Car problem → rental service fixed it.</li>
+                                    <li>Muscle ache → booked home massage online.</li>
+                                </ul>
+                                <h3>Technology Support</h3>
+                                <ul class="sticky c-orange">
+                                    <li>Meituan for ingredient delivery.</li>
+                                    <li>Ctrip and Didi for smooth travel.</li>
+                                    <li>WeChat for coordination and communication.</li>
+                                </ul>
+                            </div>
+                        </article>
+
+                        <article class="theme">
+                            <h2>Theme 5 — Reflection & Future Expectations</h2>
+                            <div class="sub">
+                                <h3>Overall Feelings</h3>
+                                <ul class="sticky c-purple">
+                                    <li>Most felt relaxed, satisfied, or inspired.</li>
+                                    <li>Some felt tired but fulfilled.</li>
+                                </ul>
+                                <h3>Plans for Next Year</h3>
+                                <ul class="sticky c-purple">
+                                    <li>Plan earlier and check logistics.</li>
+                                    <li>Try new but similar activities (new bookstores, new recipes).</li>
+                                </ul>
+                                <h3>Desired "Holiday Assistant"</h3>
+                                <ul class="sticky c-purple">
+                                    <li>Recommend books or destinations.</li>
+                                    <li>Predict crowds and weather.</li>
+                                    <li>Manage yoga schedule and ingredient supply.</li>
+                                </ul>
+                            </div>
+                        </article>
+                    </div>
+                </article>
+
+                <article class="theme fullwide insights">
+                    <h3>4. Insights & Reflection</h3>
+                    <ol>
+                        <li>Motivation is mainly relaxation- and interest-driven, not purely tourism-based.</li>
+                        <li>Decisions depend most on cost, convenience, and crowd levels.</li>
+                        <li>Social media and personal networks are key information sources.</li>
+                        <li>Experiences are mostly positive, with technology tools enhancing convenience.</li>
+                        <li>Participants express a growing desire for personalized, organized, and intelligent holiday planning in the future.</li>
+                    </ol>
+                    <h4>Unexpected findings</h4>
+                    <ul>
+                        <li>"Non-travel" holidays (reading, baking, yoga) were surprisingly popular, showing a preference for recovery over exploration.</li>
+                        <li>Occupation and age clearly influence holiday style.</li>
+                        <li>Many wanted a "Holiday Assistant," suggesting a potential design opportunity for AI-based recommendation tools.</li>
+                    </ul>
+                </article>
+            </section>
+        </div>
+        
         <footer>
             <p>Data Visualization Report &copy; 2025 | Based on Real Survey Data</p>
         </footer>
     </div>
 
     <script>
+        // Set unified color scheme
+        const colors = {
+            primary: ['#6a11cb', '#2575fc', '#48bb78', '#f56565', '#9b51e0'],
+            pastel: ['#aed6f1', '#f5b7b1', '#abebc6', '#f9e79f', '#d7bde2'],
+            gradient: ['#4CAF50', '#8BC34A', '#FFC107', '#FF9800', '#F44336']
+        };
+
         // Question 1 Data - Bar Chart
         const q1Ctx = document.getElementById('q1Chart').getContext('2d');
         const q1Chart = new Chart(q1Ctx, {
@@ -347,6 +791,191 @@
                         title: {
                             display: true,
                             text: 'Spending Range'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Analysis Report Charts
+        // Status Chart - Doughnut
+        new Chart(document.getElementById('statusChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Student', 'Employed', 'Freelancer/Self-employed', 'Other'],
+                datasets: [{
+                    data: [10, 50, 30, 10],
+                    backgroundColor: ['#6a11cb', '#2575fc', '#48bb78', '#f56565'],
+                    borderColor: '#fff',
+                    borderWidth: 2,
+                    hoverOffset: 15
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '60%',
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.label + ': ' + context.raw + '%';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Transportation Chart - Stacked Bar
+        new Chart(document.getElementById('transportationChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Under 18', '19-25', '26-35', '36-45', '45 and above'],
+                datasets: [
+                    {
+                        label: 'Self-driving',
+                        data: [100, 100, 50, 30, 25],
+                        backgroundColor: '#6a11cb'
+                    },
+                    {
+                        label: 'High-speed rail',
+                        data: [0, 0, 50, 0, 0],
+                        backgroundColor: '#2575fc'
+                    },
+                    {
+                        label: 'Airplane',
+                        data: [0, 30, 0, 0, 0],
+                        backgroundColor: '#48bb78'
+                    },
+                    {
+                        label: 'Did not travel',
+                        data: [0, 0, 0, 30, 30],
+                        backgroundColor: '#f56565'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        stacked: true,
+                        title: {
+                            display: true,
+                            text: 'Age Groups'
+                        }
+                    },
+                    y: {
+                        stacked: true,
+                        beginAtZero: true,
+                        max: 100,
+                        title: {
+                            display: true,
+                            text: 'Percentage (%)'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Satisfaction Radar Chart
+        new Chart(document.getElementById('satisfactionRadarChart'), {
+            type: 'radar',
+            data: {
+                labels: ['Service Quality', 'Convenience', 'Value for Money', 'Safety', 'Comfort', 'Overall Experience'],
+                datasets: [{
+                    label: 'Satisfaction Score',
+                    data: [85, 90, 75, 95, 88, 92],
+                    backgroundColor: 'rgba(106, 17, 203, 0.2)',
+                    borderColor: '#6a11cb',
+                    pointBackgroundColor: '#6a11cb',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: '#6a11cb'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            stepSize: 20
+                        }
+                    }
+                }
+            }
+        });
+
+        // Satisfaction Gauge Chart
+        new Chart(document.getElementById('satisfactionGaugeChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Very Satisfied', 'Satisfied'],
+                datasets: [{
+                    data: [70, 30],
+                    backgroundColor: ['#48bb78', '#2575fc'],
+                    borderWidth: 0,
+                    circumference: 180,
+                    rotation: 270
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '70%',
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.label + ': ' + context.raw + '%';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Demographic Chart
+        new Chart(document.getElementById('demographicChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Under 18', '19-25', '26-35', '36-45', '45 and above'],
+                datasets: [
+                    {
+                        label: 'Age Distribution (%)',
+                        data: [10, 10, 30, 25, 25],
+                        backgroundColor: '#6a11cb',
+                        borderColor: '#2575fc',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 35,
+                        title: {
+                            display: true,
+                            text: 'Percentage (%)'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Age Groups'
                         }
                     }
                 }
