@@ -1,1 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey Data Visualization</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" opacity="0.03"><path d="M0 0h50v50H0z" fill="%236a11cb"/><path d="M50 50h50v50H50z" fill="%232575fc"/></svg>');
+            background-size: 200px 200px;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(106, 17, 203, 0.9) 0%, rgba(37, 117, 252, 0.9) 100%);
+            color: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" opacity="0.1"><path d="M0 0h30v30H0z" fill="%23ffffff"/><path d="M30 30h30v30H30z" fill="%23ffffff"/></svg>');
+            background-size: 60px 60px;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            position: relative;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            position: relative;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .cards-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.12);
+        }
+        
+        .card-title {
+            font-size: 1.6rem;
+            margin-bottom: 25px;
+            color: #2c3e50;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 12px;
+            position: relative;
+        }
+        
+        .card-title::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: linear-gradient(90deg, #6a11cb, #2575fc);
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 400px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        
+        .summary {
+            margin-top: 20px;
+            padding: 18px;
+            background-color: rgba(248, 249, 250, 0.8);
+            border-radius: 8px;
+            font-size: 1rem;
+            border-left: 4px solid #6a11cb;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            header {
+                padding: 20px;
+            }
+            
+            .chart-container {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Survey Data Visualization</h1>
+            <p class="subtitle">Analysis of User Preferences for Leisure Activities and Spending Habits</p>
+        </header>
+        
+        <div class="cards-container">
+            <!-- Question 1 Card -->
+            <div class="card">
+                <h2 class="card-title">Q1: How likely are you to try new leisure activities next time?</h2>
+                <div class="chart-container">
+                    <canvas id="q1Chart"></canvas>
+                </div>
+                <div class="summary">
+                    <p><strong>Analysis:</strong> Most respondents (80%) indicated they are likely or very likely to try new leisure activities, showing strong willingness to explore.</p>
+                </div>
+            </div>
+            
+            <!-- Question 2 Card -->
+            <div class="card">
+                <h2 class="card-title">Q2: Which information channel do you rely on most?</h2>
+                <div class="chart-container">
+                    <canvas id="q2Chart"></canvas>
+                </div>
+                <div class="summary">
+                    <p><strong>Analysis:</strong> Social media is the primary information channel (40%), followed by e-commerce platforms (20%), with other channels showing relatively even distribution.</p>
+                </div>
+            </div>
+            
+            <!-- Question 3 Card -->
+            <div class="card">
+                <h2 class="card-title">Q3: Approximate total spending during the holiday?</h2>
+                <div class="chart-container">
+                    <canvas id="q3Chart"></canvas>
+                </div>
+                <div class="summary">
+                    <p><strong>Analysis:</strong> Most respondents (30%) spent under ¥500, with spending distribution showing a clear long-tail pattern.</p>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Data Visualization Report &copy; 2025 | Based on Real Survey Data</p>
+        </footer>
+    </div>
 
+    <script>
+        // Question 1 Data - Bar Chart
+        const q1Ctx = document.getElementById('q1Chart').getContext('2d');
+        const q1Chart = new Chart(q1Ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Very Likely', 'Likely', 'Neutral', 'Unlikely', 'Uncertain'],
+                datasets: [{
+                    label: 'Number of People',
+                    data: [5, 3, 1, 1, 0],
+                    backgroundColor: [
+                        'rgba(106, 17, 203, 0.7)',
+                        'rgba(37, 117, 252, 0.7)',
+                        'rgba(72, 187, 120, 0.7)',
+                        'rgba(245, 101, 101, 0.7)',
+                        'rgba(155, 81, 224, 0.7)'
+                    ],
+                    borderColor: [
+                        'rgba(106, 17, 203, 1)',
+                        'rgba(37, 117, 252, 1)',
+                        'rgba(72, 187, 120, 1)',
+                        'rgba(245, 101, 101, 1)',
+                        'rgba(155, 81, 224, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `People: ${context.raw}`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Number of People'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Likelihood'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Question 2 Data - Doughnut Chart
+        const q2Ctx = document.getElementById('q2Chart').getContext('2d');
+        const q2Chart = new Chart(q2Ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Social Media', 'E-commerce Platform', 'Official App', 'Travel App', 'Lifestyle App', 'Kids\' App'],
+                datasets: [{
+                    data: [4, 2, 1, 1, 1, 1],
+                    backgroundColor: [
+                        'rgba(106, 17, 203, 0.7)',
+                        'rgba(37, 117, 252, 0.7)',
+                        'rgba(72, 187, 120, 0.7)',
+                        'rgba(245, 171, 53, 0.7)',
+                        'rgba(245, 101, 101, 0.7)',
+                        'rgba(155, 81, 224, 0.7)'
+                    ],
+                    borderColor: [
+                        'rgba(106, 17, 203, 1)',
+                        'rgba(37, 117, 252, 1)',
+                        'rgba(72, 187, 120, 1)',
+                        'rgba(245, 171, 53, 1)',
+                        'rgba(245, 101, 101, 1)',
+                        'rgba(155, 81, 224, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'right',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const label = context.label || '';
+                                const value = context.raw || 0;
+                                const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                const percentage = Math.round((value / total) * 100);
+                                return `${label}: ${value} (${percentage}%)`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Question 3 Data - Line Chart
+        const q3Ctx = document.getElementById('q3Chart').getContext('2d');
+        const q3Chart = new Chart(q3Ctx, {
+            type: 'line',
+            data: {
+                labels: ['Under ¥500', '¥500-1000', '¥1000-1500', '¥1500-2000', '¥2000-3000', '¥3000-4000', '¥5000-8000'],
+                datasets: [{
+                    label: 'Number of People',
+                    data: [3, 1, 2, 1, 1, 1, 1],
+                    backgroundColor: 'rgba(37, 117, 252, 0.1)',
+                    borderColor: 'rgba(37, 117, 252, 1)',
+                    borderWidth: 3,
+                    pointBackgroundColor: 'rgba(106, 17, 203, 1)',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2,
+                    pointRadius: 6,
+                    tension: 0.3,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `People: ${context.raw}`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Number of People'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Spending Range'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
