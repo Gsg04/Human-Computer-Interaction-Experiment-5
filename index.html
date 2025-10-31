@@ -305,6 +305,26 @@
             color: #2c3e50;
         }
         
+        /* Affinity Diagram Image Styles */
+        .affinity-image-container {
+            margin-top: 15px;
+            text-align: center;
+        }
+        
+        .affinity-image {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .image-caption {
+            margin-top: 8px;
+            font-size: 12px;
+            color: #6b7280;
+            font-style: italic;
+        }
+        
         footer {
             text-align: center;
             margin-top: 50px;
@@ -322,13 +342,6 @@
             padding: 12px;
             border-radius: 8px;
             overflow: auto;
-        }
-        
-        .affinity-themes-container {
-            margin-top: 20px;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 18px;
         }
         
         @media (max-width: 768px) {
@@ -352,7 +365,7 @@
                 height: 250px;
             }
             
-            .affinity-grid, .affinity-themes-container {
+            .affinity-grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -499,111 +512,113 @@
                     <pre>Raw Data → Sticky Notes (Keywords) → Subthemes → Themes → Core Insights</pre>
                 </article>
 
-                <article class="theme fullwide">
+                <article class="theme">
                     <h2>3. Digital Affinity Diagram</h2>
-                    <p class="muted">Final diagram contains 30+ sticky notes, 5 main themes and 15 subthemes. Below are the themes and notes (sticky items):</p>
-                    
-                    <div class="affinity-themes-container">
-                        <article class="theme">
-                            <h2>Theme 1 — Planning Triggers & Motivations</h2>
-                            <div class="sub">
-                                <h3>Timing of Planning</h3>
-                                <ul class="sticky c-blue">
-                                    <li>Planned 1 month before to relax after work.</li>
-                                    <li>Planned 2 weeks before after roommates discussed trips.</li>
-                                    <li>Planned just 3 days before—wanted to stay home.</li>
-                                    <li>Planned early to visit exhibitions or take photos.</li>
-                                </ul>
-                                <h3>Motivations</h3>
-                                <ul class="sticky c-blue">
-                                    <li>Desire to relax and escape from work pressure.</li>
-                                    <li>Interest in cultural/art events.</li>
-                                    <li>Family bonding and shared meals.</li>
-                                    <li>Personal hobbies (photography, reading, dancing).</li>
-                                </ul>
-                            </div>
-                        </article>
+                    <p class="muted">Final diagram contains 30+ sticky notes, 5 main themes and 15 subthemes.</p>
+                    <div class="affinity-image-container">
+                        <img src="affinity_diagram.png" alt="Affinity Diagram Visualization" class="affinity-image">
+                        <p class="image-caption">Visual representation of the affinity diagram showing themes and relationships</p>
+                    </div>
+                </article>
 
-                        <article class="theme">
-                            <h2>Theme 2 — Decision Factors</h2>
-                            <div class="sub">
-                                <h3>Practical Considerations</h3>
-                                <ul class="sticky c-green">
-                                    <li>Cost and distance were main concerns.</li>
-                                    <li>Transportation convenience mattered most.</li>
-                                    <li>Accommodation availability and weather conditions.</li>
-                                </ul>
-                                <h3>Personal Priorities</h3>
-                                <ul class="sticky c-green">
-                                    <li>Avoiding crowds and ensuring rest time.</li>
-                                    <li>Family preferences over personal desires.</li>
-                                    <li>Health condition influencing activity type.</li>
-                                </ul>
-                            </div>
-                        </article>
+                <article class="theme">
+                    <h2>Theme 1 — Planning Triggers & Motivations</h2>
+                    <div class="sub">
+                        <h3>Timing of Planning</h3>
+                        <ul class="sticky c-blue">
+                            <li>Planned 1 month before to relax after work.</li>
+                            <li>Planned 2 weeks before after roommates discussed trips.</li>
+                            <li>Planned just 3 days before—wanted to stay home.</li>
+                            <li>Planned early to visit exhibitions or take photos.</li>
+                        </ul>
+                        <h3>Motivations</h3>
+                        <ul class="sticky c-blue">
+                            <li>Desire to relax and escape from work pressure.</li>
+                            <li>Interest in cultural/art events.</li>
+                            <li>Family bonding and shared meals.</li>
+                            <li>Personal hobbies (photography, reading, dancing).</li>
+                        </ul>
+                    </div>
+                </article>
 
-                        <article class="theme">
-                            <h2>Theme 3 — Information Sources & Planning Tools</h2>
-                            <div class="sub">
-                                <h3>Social Media & Apps</h3>
-                                <ul class="sticky c-yellow">
-                                    <li>Xiaohongshu and Douyin for travel ideas.</li>
-                                    <li>Ctrip for hotel and flight booking.</li>
-                                    <li>Art gallery websites and Douban groups for event info.</li>
-                                </ul>
-                                <h3>Social Networks</h3>
-                                <ul class="sticky c-yellow">
-                                    <li>Friends' and family's experiences influenced decisions.</li>
-                                    <li>Teachers, colleagues, and customers offered advice.</li>
-                                </ul>
-                            </div>
-                        </article>
+                <article class="theme">
+                    <h2>Theme 2 — Decision Factors</h2>
+                    <div class="sub">
+                        <h3>Practical Considerations</h3>
+                        <ul class="sticky c-green">
+                            <li>Cost and distance were main concerns.</li>
+                            <li>Transportation convenience mattered most.</li>
+                            <li>Accommodation availability and weather conditions.</li>
+                        </ul>
+                        <h3>Personal Priorities</h3>
+                        <ul class="sticky c-green">
+                            <li>Avoiding crowds and ensuring rest time.</li>
+                            <li>Family preferences over personal desires.</li>
+                            <li>Health condition influencing activity type.</li>
+                        </ul>
+                    </div>
+                </article>
 
-                        <article class="theme">
-                            <h2>Theme 4 — Holiday Experiences & Challenges</h2>
-                            <div class="sub">
-                                <h3>Memorable Moments</h3>
-                                <ul class="sticky c-orange">
-                                    <li>Watching sunrise, beach walks, and square dancing.</li>
-                                    <li>Family meals and successful pastry sales.</li>
-                                    <li>Finishing yoga poses or seeing art exhibitions.</li>
-                                </ul>
-                                <h3>Unexpected Events</h3>
-                                <ul class="sticky c-orange">
-                                    <li>Lost direction → used Baidu Maps.</li>
-                                    <li>Car problem → rental service fixed it.</li>
-                                    <li>Muscle ache → booked home massage online.</li>
-                                </ul>
-                                <h3>Technology Support</h3>
-                                <ul class="sticky c-orange">
-                                    <li>Meituan for ingredient delivery.</li>
-                                    <li>Ctrip and Didi for smooth travel.</li>
-                                    <li>WeChat for coordination and communication.</li>
-                                </ul>
-                            </div>
-                        </article>
+                <article class="theme">
+                    <h2>Theme 3 — Information Sources & Planning Tools</h2>
+                    <div class="sub">
+                        <h3>Social Media & Apps</h3>
+                        <ul class="sticky c-yellow">
+                            <li>Xiaohongshu and Douyin for travel ideas.</li>
+                            <li>Ctrip for hotel and flight booking.</li>
+                            <li>Art gallery websites and Douban groups for event info.</li>
+                        </ul>
+                        <h3>Social Networks</h3>
+                        <ul class="sticky c-yellow">
+                            <li>Friends' and family's experiences influenced decisions.</li>
+                            <li>Teachers, colleagues, and customers offered advice.</li>
+                        </ul>
+                    </div>
+                </article>
 
-                        <article class="theme">
-                            <h2>Theme 5 — Reflection & Future Expectations</h2>
-                            <div class="sub">
-                                <h3>Overall Feelings</h3>
-                                <ul class="sticky c-purple">
-                                    <li>Most felt relaxed, satisfied, or inspired.</li>
-                                    <li>Some felt tired but fulfilled.</li>
-                                </ul>
-                                <h3>Plans for Next Year</h3>
-                                <ul class="sticky c-purple">
-                                    <li>Plan earlier and check logistics.</li>
-                                    <li>Try new but similar activities (new bookstores, new recipes).</li>
-                                </ul>
-                                <h3>Desired "Holiday Assistant"</h3>
-                                <ul class="sticky c-purple">
-                                    <li>Recommend books or destinations.</li>
-                                    <li>Predict crowds and weather.</li>
-                                    <li>Manage yoga schedule and ingredient supply.</li>
-                                </ul>
-                            </div>
-                        </article>
+                <article class="theme">
+                    <h2>Theme 4 — Holiday Experiences & Challenges</h2>
+                    <div class="sub">
+                        <h3>Memorable Moments</h3>
+                        <ul class="sticky c-orange">
+                            <li>Watching sunrise, beach walks, and square dancing.</li>
+                            <li>Family meals and successful pastry sales.</li>
+                            <li>Finishing yoga poses or seeing art exhibitions.</li>
+                        </ul>
+                        <h3>Unexpected Events</h3>
+                        <ul class="sticky c-orange">
+                            <li>Lost direction → used Baidu Maps.</li>
+                            <li>Car problem → rental service fixed it.</li>
+                            <li>Muscle ache → booked home massage online.</li>
+                        </ul>
+                        <h3>Technology Support</h3>
+                        <ul class="sticky c-orange">
+                            <li>Meituan for ingredient delivery.</li>
+                            <li>Ctrip and Didi for smooth travel.</li>
+                            <li>WeChat for coordination and communication.</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="theme">
+                    <h2>Theme 5 — Reflection & Future Expectations</h2>
+                    <div class="sub">
+                        <h3>Overall Feelings</h3>
+                        <ul class="sticky c-purple">
+                            <li>Most felt relaxed, satisfied, or inspired.</li>
+                            <li>Some felt tired but fulfilled.</li>
+                        </ul>
+                        <h3>Plans for Next Year</h3>
+                        <ul class="sticky c-purple">
+                            <li>Plan earlier and check logistics.</li>
+                            <li>Try new but similar activities (new bookstores, new recipes).</li>
+                        </ul>
+                        <h3>Desired "Holiday Assistant"</h3>
+                        <ul class="sticky c-purple">
+                            <li>Recommend books or destinations.</li>
+                            <li>Predict crowds and weather.</li>
+                            <li>Manage yoga schedule and ingredient supply.</li>
+                        </ul>
                     </div>
                 </article>
 
